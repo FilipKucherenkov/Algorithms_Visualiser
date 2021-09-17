@@ -1,45 +1,53 @@
 import React from "react";
-
 import { useState} from "react";
 import { useEffect } from "react/cjs/react.development";
 
-const STATUS = {
-    VISITED: "VISITED",
-    START: "START",
-    END: "END",
-    EMPTY: "EMPTY",
-    WALL: "WALL"
-};
-const STATUS_STYLES = new Map([
-    ["VISITED","yellow"],
-    ["START", "green"],
-    ["END", "RED"],
-    ["EMPTY","white"],
-    ["WALL", "black"] 
-])
+import {INITIALS_STATUS, STATUS, STATUS_STYLES, CELL_OPTIONS} from "../enums";
 
-const Cell = ({id, setLastClicked, startStatus ,setStartStatus,isResetClicked}) => {
+const Cell = ({isVisited,isWall,isSource,isDestination,row,col, handleClickOnCell, startStatus, setStartStatus, destStatus, setDestStatus}) => {
     const [status, setStatus] = useState(STATUS.EMPTY);
+
+    useEffect(()=> {
+        if(isVisited){
+            setStatus(STATUS.VISITED);
+            return;
+        }
+        if(isWall){
+            setStatus(STATUS.WALL);
+            return;
+        }
+        if(isSource){
+            setStatus(STATUS.START);
+            return;
+        }
+        if(isDestination){
+            setStatus(STATUS.END);
+            return;
+        }
+        setStatus(STATUS.EMPTY)
+    },[isVisited,isWall,isSource, isDestination])
     
-    useEffect(() => {
-        setStatus(STATUS.EMPTY);
-    },[isResetClicked])
     
     return (
-     
         <div 
-            id={id}
-            onClick = {(e) =>{
-                setLastClicked(e.target.id);
-                console.log(startStatus);
-                if(startStatus ==="CLICKED"){
-                    setStatus(STATUS.START);
-                    setStartStatus("SELECTED");
-                    
+            className = "cell-style" 
+            style={{backgroundColor: STATUS_STYLES.get(status)}} //change style according status
+            onClick={(event) =>{
+                if(startStatus === INITIALS_STATUS.TOGGLED){
+                    setStartStatus(INITIALS_STATUS.SELECTED);
+                    handleClickOnCell(event, row, col, CELL_OPTIONS.SOURCE);
+                    return;
                 }
-                console.log(e.target.id);
+                if(destStatus === INITIALS_STATUS.TOGGLED && startStatus === INITIALS_STATUS.SELECTED){
+                    setDestStatus(INITIALS_STATUS.SELECTED);
+                    handleClickOnCell(event, row, col, CELL_OPTIONS.DESTINATION);
+                    return;
+                }
             }}
-            className = "cell-style" style={{backgroundColor: STATUS_STYLES.get(status)}}>x</div>    // change style according status
+
+        >  
+
+        </div>
     )
 };
 
