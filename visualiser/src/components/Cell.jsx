@@ -1,37 +1,20 @@
 import React from "react";
-import { useState} from "react";
-import { useEffect } from "react/cjs/react.development";
 
 import {INITIALS_STATUS, STATUS, STATUS_STYLES, CELL_OPTIONS} from "../enums";
 
-const Cell = ({isVisited,isWall,isSource,isDestination,row,col, handleClickOnCell, startStatus, setStartStatus, destStatus, setDestStatus}) => {
-    const [status, setStatus] = useState(STATUS.EMPTY);
-
-    useEffect(()=> {
-        if(isVisited){
-            setStatus(STATUS.VISITED);
-            return;
-        }
-        if(isWall){
-            setStatus(STATUS.WALL);
-            return;
-        }
-        if(isSource){
-            setStatus(STATUS.START);
-            return;
-        }
-        if(isDestination){
-            setStatus(STATUS.END);
-            return;
-        }
-        setStatus(STATUS.EMPTY)
-    },[isVisited,isWall,isSource, isDestination])
+const Cell = ({isWall,isSource,isDestination,row,col, handleClickOnCell, startStatus, setStartStatus, destStatus, setDestStatus,id}) => {
     
+    let cellStyle = ""
+    if(isSource)cellStyle = STATUS_STYLES.get(STATUS.START) ? STATUS_STYLES.get(STATUS.START) : cellStyle
+    if(isDestination) cellStyle = STATUS_STYLES.get(STATUS.END) ? STATUS_STYLES.get(STATUS.END) : cellStyle
+    //if(isVisited) cellStyle = STATUS.VISITED;  
+    if(isWall) cellStyle = STATUS_STYLES.get(STATUS.WALL) ? STATUS_STYLES.get(STATUS.WALL) : cellStyle
     
+      
     return (
         <div 
-            className = "cell-style" 
-            style={{backgroundColor: STATUS_STYLES.get(status)}} //change style according status
+            id = {id}
+            className = {`cell-style ${cellStyle}`}   //change style according status
             onClick={(event) =>{
                 if(startStatus === INITIALS_STATUS.TOGGLED){
                     setStartStatus(INITIALS_STATUS.SELECTED);

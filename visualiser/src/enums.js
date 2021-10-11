@@ -11,11 +11,11 @@ const INITIALS_STATUS = {
     WALL: "WALL"
 };
 const STATUS_STYLES = new Map([
-    ["VISITED","yellow"],
-    ["START", "green"],
-    ["END", "RED"],
-    ["EMPTY","white"],
-    ["WALL", "black"] 
+    ["VISITED","visited-node"],
+    ["START", "source-node"],
+    ["END", "destination-node"],
+    ["EMPTY","empty-node"],
+    ["WALL", "wall-node"] 
 ])
 
 const CELL_OPTIONS = {

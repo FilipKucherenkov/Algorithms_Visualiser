@@ -6,11 +6,19 @@ import Node from "../Node";
 import Cell from "./Cell";
 import { useEffect } from "react/cjs/react.development";
 import { INITIALS_STATUS, CELL_OPTIONS } from "../enums";
+import {visualiseBfs} from "../algorithms/bfs";
 
 const Grid = ({rows, cols}) => {
     const [grid, setGrid] = useState([]);
     const [startStatus, setStartStatus] = useState(null);
     const [destStatus, setDestStatus] = useState(null);
+
+    const [selectedAlgo, setSelectedAlgo] = useState(null);
+    const [sourceNode, setSourceNode] = useState(null);
+    const [destNode, setDestNode] = useState(null);
+
+
+
     console.log("Rerender");
     /**
      * Create the initial grid.
@@ -42,12 +50,17 @@ const Grid = ({rows, cols}) => {
         setGrid((currentState) => {
             return currentState.map((row) => {
                 return row.map((node) => {
+                    let divNode = document.getElementById(`${node.row}-${node.col}`);
+                    divNode.classList.remove("visited-node");
+                    divNode.classList.remove("path-node");
                     return new Node(node.row,node.col, false, false, false, false, false);
                 })
             })
         })
         setStartStatus(null);
         setDestStatus(null);
+        setSourceNode(null);
+        setDestNode(null);
     }
     
     /**
@@ -100,9 +113,15 @@ const Grid = ({rows, cols}) => {
                     if(node.row === targetRow && node.col === targetCol){
                         switch(targetType){
                             case CELL_OPTIONS.SOURCE:
-                                return new Node(targetRow,targetCol, true, false, false, false);
+                                let source =  new Node(targetRow,targetCol, true, false, false, false);
+                                setSourceNode(source);
+                                return source;
+
                             case CELL_OPTIONS.DESTINATION:
-                                return new Node(targetRow,targetCol, false, true, false, false);
+                                let dest =  new Node(targetRow,targetCol, false, true, false, false);
+                                setDestNode(dest);
+                                return dest;
+
                             default:
                                 console.error("Mistake");
                         }
@@ -113,24 +132,51 @@ const Grid = ({rows, cols}) => {
         })
     }
     
-   
+   const handleRun = () =>{  
+        switch(selectedAlgo){
+            case "Breadth-First Search":
+                visualiseBfs(grid,sourceNode,destNode);      
+                break;
+            case "Dijkstra":
+                break;
+            case "A-Star":
+                break;
+            default:
+                console.log("No algorithm selected"); 
+        }
+   }
     //Style used here to use props.
     const gridStyle = {
         display: "grid",
         gridTemplateColumns: `repeat(${cols}, 30px)`,
         gridTemplateCows: `repeat(${rows}, 30px)`,
+        backgroundColor: "white",
     }
 
+    
     return (
         <React.Fragment>
             <div className="container">
-                <button className="button bounce" style={{animationDelay: "0.07s"}}>Run</button>
-                <select className="button bounce" style={{animationDelay: "0.14s"}}>
+                <button 
+                    className="button bounce" 
+                    style={{animationDelay: "0.07s"}}
+                    onClick={(event) => {
+                       handleRun();
+                    }}
+                >Run</button>
+                <select 
+                    className="button bounce" 
+                    style={{animationDelay: "0.14s", outline: 0}} 
+                    onChange ={(e) => {
+
+                    setSelectedAlgo(e.target.value);
+                }}>
                     <option>Select Algorithm</option>
                     <option>Breadth-First Search</option>
                     <option>Dijkstra</option>
                     <option>A-Star</option>
-                    </select>
+                </select>
+
                 <button 
                     className="button bounce"
                     style={{animationDelay: "0.21s"}}
@@ -158,6 +204,7 @@ const Grid = ({rows, cols}) => {
             <div className="container-style">
                 <div style = {gridStyle}>
                     {grid.map((row) => row.map((node) => <Cell
+                                            id= {`${node.row}-${node.col}`}
                                             key={`${node.row}-${node.col}`}
                                             row={node.row} 
                                             col={node.col} 
