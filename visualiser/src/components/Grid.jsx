@@ -17,6 +17,7 @@ const Grid = ({rows, cols}) => {
     const [sourceNode, setSourceNode] = useState(null);
     const [destNode, setDestNode] = useState(null);
 
+    const [isMouseDown, setMouseDown] = useState(false);
 
 
     console.log("Rerender");
@@ -43,6 +44,8 @@ const Grid = ({rows, cols}) => {
         createGrid();
     },[])
 
+
+    
     /**
      * Reset the whole grid to it's initial state.
      */
@@ -63,6 +66,37 @@ const Grid = ({rows, cols}) => {
         setDestNode(null);
     }
     
+    const handleMouseDown = () => {
+        setMouseDown(true);
+    }
+    const handleMouseUp = () => {
+        setMouseDown(false);
+    }
+
+    const handleMouseMove = (targetRow, targetCol) => {
+        if(!isMouseDown){
+            return;
+        }
+        setGrid((currentState) => {
+            return currentState.map((row) => {
+                return row.map((node) => {
+                    if(startStatus === INITIALS_STATUS.TOGGLED){
+                        // render a message to select a source node first.
+                        return node;
+                    }
+                    if(destStatus === INITIALS_STATUS.TOGGLED){
+                        // render a message to select a dest node first
+                        return node;
+                    }
+                    if(node.row == targetRow && node.col == targetCol && !node.isSource && !node.isDestination){
+                        return new Node(node.row,node.col, false, false, true, false, false);
+                    }
+                    return node;
+                })
+            })
+        })
+    }
+
     /**
      * Mark the souce cell.
      * @param {*} event 
@@ -217,6 +251,9 @@ const Grid = ({rows, cols}) => {
                                             setStartStatus = {setStartStatus}
                                             destStatus = {destStatus}
                                             setDestStatus = {setDestStatus}
+                                            handleMouseDown = {handleMouseDown}
+                                            handleMouseUp = {handleMouseUp}
+                                            handleMouseMove= {handleMouseMove}
                                         />
                             ))}
                 </div>

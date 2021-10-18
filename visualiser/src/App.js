@@ -4,8 +4,6 @@ import {Helmet} from "react-helmet";
 import Grid from "./components/Grid";
 
 
-
-
 function App() {
 
   return (
@@ -14,9 +12,7 @@ function App() {
         <style>{"body {background-color:#130A1E;}"}</style>
       </Helmet>
 
-      <Grid 
-        rows={25} 
-        cols={25}/>
+      <Grid rows={25} cols={25}/>
 
     </React.Fragment>
   );
