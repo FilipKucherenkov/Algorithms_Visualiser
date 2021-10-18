@@ -7,6 +7,7 @@ import Cell from "./Cell";
 import { useEffect } from "react/cjs/react.development";
 import { INITIALS_STATUS, CELL_OPTIONS } from "../enums";
 import {visualiseBfs} from "../algorithms/bfs";
+import { visualiseAStar } from "../algorithms/aStar";
 
 const Grid = ({rows, cols}) => {
     const [grid, setGrid] = useState([]);
@@ -33,7 +34,7 @@ const Grid = ({rows, cols}) => {
             for(let row = 0; row < rows; row++){
                 let newRow = [];
                 for(let col = 0; col < cols; col++){
-                    let newNode = new Node(row, col, false, false, false, false);
+                    let newNode = new Node(row, col, false, false, false, false, Infinity, 0, Infinity, null);
                     newRow.push(newNode);
                 }
                 setGrid((currentState) => {
@@ -56,7 +57,7 @@ const Grid = ({rows, cols}) => {
                     let divNode = document.getElementById(`${node.row}-${node.col}`);
                     divNode.classList.remove("visited-node");
                     divNode.classList.remove("path-node");
-                    return new Node(node.row,node.col, false, false, false, false, false);
+                    return new Node(node.row,node.col, false, false, false, false, Infinity, 0, Infinity, null);
                 })
             })
         })
@@ -101,8 +102,8 @@ const Grid = ({rows, cols}) => {
                         // render a message to select a dest node first
                         return node;
                     }
-                    if(node.row == targetRow && node.col == targetCol && !node.isSource && !node.isDestination){
-                        return new Node(node.row,node.col, false, false, true, false, false);
+                    if(node.row === targetRow && node.col === targetCol && !node.isSource && !node.isDestination){
+                        return new Node(node.row,node.col, false, false, true, false, Infinity, 0, Infinity, null);
                     }
                     return node;
                 })
@@ -160,12 +161,12 @@ const Grid = ({rows, cols}) => {
                     if(node.row === targetRow && node.col === targetCol && !node.isSource){
                         switch(targetType){
                             case CELL_OPTIONS.SOURCE:
-                                let source =  new Node(targetRow,targetCol, true, false, false, false);
+                                let source =  new Node(targetRow,targetCol, true, false, false, false, Infinity, 0, Infinity, null);
                                 setSourceNode(source);
                                 return source;
 
                             case CELL_OPTIONS.DESTINATION:
-                                let dest =  new Node(targetRow,targetCol, false, true, false, false);
+                                let dest =  new Node(targetRow,targetCol, false, true, false, false, Infinity, 0, Infinity, null);
                                 setDestNode(dest);
                                 return dest;
 
@@ -190,6 +191,8 @@ const Grid = ({rows, cols}) => {
             case "Dijkstra":
                 break;
             case "A-Star":
+                
+                visualiseAStar(grid, sourceNode, destNode);
                 break;
             default:
                 console.log("No algorithm selected"); 
