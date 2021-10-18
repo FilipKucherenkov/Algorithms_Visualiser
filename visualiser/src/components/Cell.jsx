@@ -2,7 +2,22 @@ import React from "react";
 
 import {INITIALS_STATUS, STATUS, STATUS_STYLES, CELL_OPTIONS} from "../enums";
 
-const Cell = ({isWall,isSource,isDestination,row,col, handleClickOnCell, startStatus, setStartStatus, destStatus, setDestStatus,id, handleMouseDown, handleMouseUp, handleMouseMove}) => {
+const Cell = ({
+    isWall,
+    isSource,
+    isDestination,
+    row,
+    col, 
+    handleClickOnCell, 
+    startStatus, 
+    setStartStatus, 
+    destStatus, 
+    setDestStatus,
+    id, 
+    handleMouseDown, 
+    handleMouseUp, 
+    handleMouseMove
+}) => {
     
     let cellStyle = ""
     if(isSource)cellStyle = STATUS_STYLES.get(STATUS.START) ? STATUS_STYLES.get(STATUS.START) : cellStyle
@@ -21,7 +36,7 @@ const Cell = ({isWall,isSource,isDestination,row,col, handleClickOnCell, startSt
                     handleClickOnCell(event, row, col, CELL_OPTIONS.SOURCE);
                     return;
                 }
-                if(destStatus === INITIALS_STATUS.TOGGLED && startStatus === INITIALS_STATUS.SELECTED){
+                if(destStatus === INITIALS_STATUS.TOGGLED && startStatus === INITIALS_STATUS.SELECTED && !isSource){
                     setDestStatus(INITIALS_STATUS.SELECTED);
                     handleClickOnCell(event, row, col, CELL_OPTIONS.DESTINATION);
                     return;

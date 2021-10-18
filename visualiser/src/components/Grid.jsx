@@ -66,13 +66,26 @@ const Grid = ({rows, cols}) => {
         setDestNode(null);
     }
     
+    /**
+     * Record that the mouse button has been released.
+     */
     const handleMouseDown = () => {
         setMouseDown(true);
     }
+
+    /**
+     * Record that the mouse button has been released.
+     */
     const handleMouseUp = () => {
         setMouseDown(false);
     }
 
+    /**
+     * When the mouse has been pressed and moved, set the target node (those that the mouse goes over)
+     * to a wall node.
+     * @param {*} targetRow - row of the selected node.
+     * @param {*} targetCol - col of the selected node.
+     */
     const handleMouseMove = (targetRow, targetCol) => {
         if(!isMouseDown){
             return;
@@ -144,7 +157,7 @@ const Grid = ({rows, cols}) => {
         setGrid((currentState) => {
             return currentState.map((row)=>{
                 return row.map((node)=>{
-                    if(node.row === targetRow && node.col === targetCol){
+                    if(node.row === targetRow && node.col === targetCol && !node.isSource){
                         switch(targetType){
                             case CELL_OPTIONS.SOURCE:
                                 let source =  new Node(targetRow,targetCol, true, false, false, false);
@@ -167,6 +180,9 @@ const Grid = ({rows, cols}) => {
     }
     
    const handleRun = () =>{  
+       if(sourceNode === null || destNode === null){
+           return;
+       }
         switch(selectedAlgo){
             case "Breadth-First Search":
                 visualiseBfs(grid,sourceNode,destNode);      
