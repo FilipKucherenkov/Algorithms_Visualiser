@@ -49,7 +49,7 @@ const bfs = (grid, sourceNode, destNode) => {
  */
 const visualiseBfs = (grid, sourceNode, destNode) =>{
     let visitedNodes = bfs(grid, sourceNode, destNode);
-    visualiseAlgorithm(grid, sourceNode, destNode, visitedNodes);
+    visualiseAlgorithm(destNode, visitedNodes);
 }
 
 

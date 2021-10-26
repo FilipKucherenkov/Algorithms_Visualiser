@@ -1,10 +1,14 @@
+ //**************************************************************//
+ //This file contains functions used for Algorithm Visualisation.//
+ //***************************************************************/                                        
+
 /**
  * Visualise the Breadth-First Search algorithm.
  * @param {*} grid 
  * @param {*} sourceNode 
  * @param {*} destNode 
  */
- const visualiseAlgorithm =  (grid, sourceNode, destNode, visitedNodes) => {
+ const visualiseAlgorithm =  (destNode, visitedNodes) => {
 
     /**
      * Helper function build the shortest path from the source node to the destination node
@@ -20,7 +24,7 @@
             current = current.parent;
         }
         shortestPath.pop();
-            return shortestPath.reverse();
+        return shortestPath.reverse();
     }
    
     /**

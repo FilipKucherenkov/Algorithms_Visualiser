@@ -8,6 +8,8 @@ import { useEffect } from "react/cjs/react.development";
 import { INITIALS_STATUS, CELL_OPTIONS } from "../enums";
 import {visualiseBfs} from "../algorithms/bfs";
 import { visualiseAStar } from "../algorithms/aStar";
+import { dfs } from "../algorithms/dfs";
+import { visualiseDijkstra } from "../algorithms/dijkstra";
 
 const Grid = ({rows, cols}) => {
     const [grid, setGrid] = useState([]);
@@ -22,6 +24,7 @@ const Grid = ({rows, cols}) => {
 
 
     console.log("Rerender");
+
     /**
      * Create the initial grid.
      */
@@ -44,8 +47,6 @@ const Grid = ({rows, cols}) => {
         }
         createGrid();
     },[])
-
-
     
     /**
      * Reset the whole grid to it's initial state.
@@ -180,15 +181,21 @@ const Grid = ({rows, cols}) => {
         })
     }
     
-   const handleRun = () =>{  
-       if(sourceNode === null || destNode === null){
+    /**
+     * Handle run button. Start the selected algorithm.
+     * @returns 
+     */
+    const handleRun = () =>{  
+        if(sourceNode === null || destNode === null){
            return;
-       }
+        }
         switch(selectedAlgo){
             case "Breadth-First Search":
-                visualiseBfs(grid,sourceNode,destNode);      
+                visualiseBfs(grid, sourceNode, destNode);      
+                console.log(grid);
                 break;
             case "Dijkstra":
+                visualiseDijkstra(grid, sourceNode, destNode)
                 break;
             case "A-Star":
                 
@@ -197,7 +204,22 @@ const Grid = ({rows, cols}) => {
             default:
                 console.log("No algorithm selected"); 
         }
-   }
+    }
+
+    /**
+     * Handle maze generation button. Reset the grid, set all nodes to walls and generate the maze.
+     */
+    const handleMazeGeneration = () => {
+        handleReset();
+        // set all nodes to walls.
+        const gridWithtWalls =  grid.map((row) => {
+                return row.map((node) => {
+                    return new Node(node.row,node.col, false, false, true, node.isVisited, Infinity, 0, Infinity, null);
+                })
+        })
+        let newGrid = dfs(gridWithtWalls, grid[0][0]);
+        setGrid(newGrid);  
+    }
     //Style used here to use props.
     const gridStyle = {
         display: "grid",
@@ -229,10 +251,14 @@ const Grid = ({rows, cols}) => {
                     <option>Dijkstra</option>
                     <option>A-Star</option>
                 </select>
-
-                <button 
+                <button
                     className="button bounce"
                     style={{animationDelay: "0.21s"}}
+                    onClick={(event) => {handleMazeGeneration()}}
+                >Generate Maze</button>
+                <button 
+                    className="button bounce"
+                    style={{animationDelay: "0.28s"}}
                     onClick={() => handleReset()}
                 >Reset Board</button>
                 <button 
@@ -241,7 +267,7 @@ const Grid = ({rows, cols}) => {
                         handlePlaceStart(event);
                     }}
                     // If button is being disabled change it's color
-                    style={(startStatus === INITIALS_STATUS.TOGGLED && {color: "#000000", backgroundColor: "#FFFFFF"}) || {animationDelay: "0.28s"}} 
+                    style={(startStatus === INITIALS_STATUS.TOGGLED && {color: "#000000", backgroundColor: "#FFFFFF"}) || {animationDelay: "0.35s"}} 
                     disabled = {startStatus === INITIALS_STATUS.TOGGLED}
                 >Place start</button>
                 <button 
@@ -250,7 +276,7 @@ const Grid = ({rows, cols}) => {
                         handlePlaceDestination(event);
                     }}
                     // If button is being disabled change it's color
-                    style={(destStatus === INITIALS_STATUS.TOGGLED && {color: "#000000", backgroundColor: "#FFFFFF"}) || {animationDelay: "0.28s"}} 
+                    style={(destStatus === INITIALS_STATUS.TOGGLED && {color: "#000000", backgroundColor: "#FFFFFF"}) || {animationDelay: "0.42"}} 
                     disabled = {destStatus === INITIALS_STATUS.TOGGLED}
                 >Place destination</button>
             </div>
@@ -278,8 +304,7 @@ const Grid = ({rows, cols}) => {
                 </div>
             </div>
         </React.Fragment>
-    )
-    
+    ) 
 };
 
 

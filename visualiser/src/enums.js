@@ -1,3 +1,7 @@
+/**
+ * This file contains objects used as enums throughout the app.
+ */
+
 const INITIALS_STATUS = {
     SELECTED: "SELECTED",
     TOGGLED: "TOGGLED",
