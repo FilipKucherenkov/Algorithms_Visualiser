@@ -9,6 +9,7 @@ import { INITIALS_STATUS, CELL_OPTIONS } from "../enums";
 import {visualiseBfs} from "../algorithms/bfs";
 import { visualiseAStar } from "../algorithms/aStar";
 import { dfs } from "../algorithms/dfs";
+import { visualiseDijkstra } from "../algorithms/dijkstra";
 
 const Grid = ({rows, cols}) => {
     const [grid, setGrid] = useState([]);
@@ -190,10 +191,11 @@ const Grid = ({rows, cols}) => {
         }
         switch(selectedAlgo){
             case "Breadth-First Search":
-                visualiseBfs(grid,sourceNode,destNode);      
+                visualiseBfs(grid, sourceNode, destNode);      
                 console.log(grid);
                 break;
             case "Dijkstra":
+                visualiseDijkstra(grid, sourceNode, destNode)
                 break;
             case "A-Star":
                 

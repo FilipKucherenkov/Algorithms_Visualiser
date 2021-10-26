@@ -24,7 +24,7 @@
             current = current.parent;
         }
         shortestPath.pop();
-            return shortestPath.reverse();
+        return shortestPath.reverse();
     }
    
     /**
