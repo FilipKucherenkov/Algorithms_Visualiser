@@ -10,11 +10,10 @@ const aStar = (grid, sourceNode, destNode) => {
     sourceNode.isVisited = true;
     sourceNode.dValue = 0;
     sourceNode.fValue = calculateManhattanDistance(sourceNode,destNode);
-    visited.push(sourceNode);
-    
+
     while(priorityQ.length > 0){
         let node = priorityQ.shift();
-        
+        visited.push(node);
 
         if(node === destNode){
             break;
@@ -38,6 +37,7 @@ const aStar = (grid, sourceNode, destNode) => {
             }
         });
     }
+    visited.shift();
     return visited;
 }
 

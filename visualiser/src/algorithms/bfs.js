@@ -36,7 +36,6 @@ const bfs = (grid, sourceNode, destNode) => {
             }
         })
     }
-    //We don't need the source for the sake of visualisation.
     visited.shift();
     return visited;  
 }
