@@ -1,7 +1,13 @@
 import { checkForWalls, getChildren } from "./helperFunctions";
 import { visualiseAlgorithm } from "./visualiseTools";
 
-
+/**
+ * A-star Search Algorithm.
+ * @param {*} grid - The grid
+ * @param {*} sourceNode - the source node.
+ * @param {*} destNode  - the destination node.
+ * @returns an array with all visited nodes.
+ */
 const aStar = (grid, sourceNode, destNode) => {
     const priorityQ = [];
     const visited = [];
@@ -32,7 +38,6 @@ const aStar = (grid, sourceNode, destNode) => {
                     child.fValue = child.dValue + child.hValue;
                     priorityQ.push(child);
                     priorityQ.sort((a,b) => (a.fValue - b.fValue));
-                    visited.push(child);
                 }
             }
         });

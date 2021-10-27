@@ -5,11 +5,13 @@ import "../styles/navigation-style.css"
 import Node from "../Node";
 import Cell from "./Cell";
 import { useEffect } from "react/cjs/react.development";
-import { INITIALS_STATUS, CELL_OPTIONS } from "../enums";
+import { INITIALS_STATUS, CELL_OPTIONS, ERRORS } from "../enums";
 import {visualiseBfs} from "../algorithms/bfs";
 import { visualiseAStar } from "../algorithms/aStar";
 import { dfs } from "../algorithms/dfs";
 import { visualiseDijkstra } from "../algorithms/dijkstra";
+import ErrorMsg from "./errorMsg";
+
 
 const Grid = ({rows, cols}) => {
     const [grid, setGrid] = useState([]);
@@ -22,8 +24,8 @@ const Grid = ({rows, cols}) => {
 
     const [isMouseDown, setMouseDown] = useState(false);
 
+    const [areInitialsSelected, setInitials] = useState(null);
 
-    console.log("Rerender");
 
     /**
      * Create the initial grid.
@@ -95,14 +97,11 @@ const Grid = ({rows, cols}) => {
         setGrid((currentState) => {
             return currentState.map((row) => {
                 return row.map((node) => {
-                    if(startStatus === INITIALS_STATUS.TOGGLED){
-                        // render a message to select a source node first.
+                    if(startStatus === INITIALS_STATUS.TOGGLED || destStatus === INITIALS_STATUS.TOGGLED){
+                        // select a source or dest nodes first before placing a wall.
                         return node;
                     }
-                    if(destStatus === INITIALS_STATUS.TOGGLED){
-                        // render a message to select a dest node first
-                        return node;
-                    }
+                      
                     if(node.row === targetRow && node.col === targetCol && !node.isSource && !node.isDestination){
                         return new Node(node.row,node.col, false, false, true, false, Infinity, 0, Infinity, null);
                     }
@@ -117,16 +116,12 @@ const Grid = ({rows, cols}) => {
      * @param {*} event 
      */
     const handlePlaceStart = (event) =>{
-        if(startStatus === INITIALS_STATUS.TOGGLED){
-            console.log("You have already clicked this.");
-            // TODO: render a message to ask to select a cell.
-        }
         if(startStatus === null){
-            console.log("Click");
             setStartStatus(INITIALS_STATUS.TOGGLED);
         }
         if(startStatus === INITIALS_STATUS.SELECTED){
-            
+            //TODO: Add a message that source has already been selected
+            console.log("Selected");
         }
     }
 
@@ -135,16 +130,11 @@ const Grid = ({rows, cols}) => {
      * @param {*} event 
      */
     const handlePlaceDestination = (event) =>{
-        if(destStatus === INITIALS_STATUS.TOGGLED){
-            console.log("You have already clicked this.");
-            // TODO: render a message to ask to select a cell.
-        }
         if(destStatus === null){
-            console.log("Click");
             setDestStatus(INITIALS_STATUS.TOGGLED);
         }
         if(destStatus === INITIALS_STATUS.SELECTED){
-            
+            //TODO: Add a message that destination has already been selected
         }
     }
 
@@ -169,10 +159,11 @@ const Grid = ({rows, cols}) => {
                             case CELL_OPTIONS.DESTINATION:
                                 let dest =  new Node(targetRow,targetCol, false, true, false, false, Infinity, 0, Infinity, null);
                                 setDestNode(dest);
+                                setInitials(true);
                                 return dest;
 
                             default:
-                                console.error("Mistake");
+                                //TODO: display a error here.
                         }
                     }
                     return node;
@@ -187,22 +178,23 @@ const Grid = ({rows, cols}) => {
      */
     const handleRun = () =>{  
         if(sourceNode === null || destNode === null){
+           setInitials(false);
            return;
         }
+        
         switch(selectedAlgo){
             case "Breadth-First Search":
-                visualiseBfs(grid, sourceNode, destNode);      
+                visualiseBfs(grid,sourceNode,destNode);      
                 console.log(grid);
                 break;
             case "Dijkstra":
-                visualiseDijkstra(grid, sourceNode, destNode)
+                visualiseDijkstra(grid, sourceNode, destNode);
                 break;
             case "A-Star":
-                
                 visualiseAStar(grid, sourceNode, destNode);
                 break;
             default:
-                console.log("No algorithm selected"); 
+                //TODO: display a error here.
         }
     }
 
@@ -214,7 +206,7 @@ const Grid = ({rows, cols}) => {
         // set all nodes to walls.
         const gridWithtWalls =  grid.map((row) => {
                 return row.map((node) => {
-                    return new Node(node.row,node.col, false, false, true, node.isVisited, Infinity, 0, Infinity, null);
+                    return new Node(node.row,node.col, false, false, true, false, Infinity, 0, Infinity, null);
                 })
         })
         let newGrid = dfs(gridWithtWalls, grid[0][0]);
@@ -231,6 +223,11 @@ const Grid = ({rows, cols}) => {
     
     return (
         <React.Fragment>
+            {/* TODO: Design a custom error and fix implementation. Maybe use enums again*/}
+            <div className="errors-container">
+                {areInitialsSelected===false && <ErrorMsg message={ERRORS.MISSING_INITIALS}></ErrorMsg>}
+            </div>
+            
             <div className="container">
                 <button 
                     className="button bounce" 
