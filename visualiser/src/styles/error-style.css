@@ -1,0 +1,21 @@
+.error-container{
+    height: 30px;
+    width: 200px;
+    border:3px solid;
+    border-color: #C51D27;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 25px / 25px;
+    color: #484A4A;
+    background-color: #FFFFFF;
+    position:absolute;
+    top: 10%;
+    left: 12%;
+    padding: 10px;
+}
+
+.message-style{
+   width: 150px;
+   margin-left: 23%;
+   margin-top: -18%;
+}
+
