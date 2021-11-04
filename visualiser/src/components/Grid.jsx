@@ -224,7 +224,7 @@ const Grid = ({rows, cols}) => {
     return (
         <React.Fragment>
             {/* TODO: Design a custom error and fix implementation. Maybe use enums again*/}
-            <div className="errors-container">
+            <div className="error-message">
                 {areInitialsSelected===false && <ErrorMsg message={ERRORS.MISSING_INITIALS}></ErrorMsg>}
             </div>
             
