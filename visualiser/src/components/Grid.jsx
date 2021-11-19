@@ -25,7 +25,7 @@ const Grid = ({rows, cols}) => {
     const [isMouseDown, setMouseDown] = useState(false);
 
     const [areInitialsSelected, setInitials] = useState(null);
-
+    const [isAlgorithmSelected, setAlgorithm] = useState(null);
 
     /**
      * Create the initial grid.
@@ -185,7 +185,6 @@ const Grid = ({rows, cols}) => {
         switch(selectedAlgo){
             case "Breadth-First Search":
                 visualiseBfs(grid,sourceNode,destNode);      
-                console.log(grid);
                 break;
             case "Dijkstra":
                 visualiseDijkstra(grid, sourceNode, destNode);
@@ -194,7 +193,7 @@ const Grid = ({rows, cols}) => {
                 visualiseAStar(grid, sourceNode, destNode);
                 break;
             default:
-                //TODO: display a error here.
+                setAlgorithm(false);
         }
     }
 
@@ -212,6 +211,8 @@ const Grid = ({rows, cols}) => {
         let newGrid = dfs(gridWithtWalls, grid[0][0]);
         setGrid(newGrid);  
     }
+
+    
     //Style used here to use props.
     const gridStyle = {
         display: "grid",
@@ -225,7 +226,8 @@ const Grid = ({rows, cols}) => {
         <React.Fragment>
             {/* TODO: Design a custom error and fix implementation. Maybe use enums again*/}
             <div className="error-message">
-                {areInitialsSelected===false && <ErrorMsg message={ERRORS.MISSING_INITIALS}></ErrorMsg>}
+                {areInitialsSelected===false && <ErrorMsg message={ERRORS.MISSING_INITIALS} handleMinimise={setInitials}></ErrorMsg>}
+                {isAlgorithmSelected===false && <ErrorMsg message={ERRORS.MISSING_ALGORITHM} handleMinimise={setAlgorithm} style={{top:"100%"}}></ErrorMsg>}
             </div>
             
             <div className="container">
@@ -240,8 +242,13 @@ const Grid = ({rows, cols}) => {
                     className="button bounce" 
                     style={{animationDelay: "0.14s", outline: 0}} 
                     onChange ={(e) => {
-
-                    setSelectedAlgo(e.target.value);
+                    const algorithm = e.target.value;
+                    if(algorithm !== "Select Algorithm"){
+                        setAlgorithm(true);
+                    }else{
+                        setAlgorithm(false);
+                    }
+                    setSelectedAlgo(algorithm);
                 }}>
                     <option>Select Algorithm</option>
                     <option>Breadth-First Search</option>

@@ -38,6 +38,7 @@ const aStar = (grid, sourceNode, destNode) => {
                     child.fValue = child.dValue + child.hValue;
                     priorityQ.push(child);
                     priorityQ.sort((a,b) => (a.fValue - b.fValue));
+                    visited.push(child);
                 }
             }
         });

@@ -29,6 +29,7 @@ const CELL_OPTIONS = {
 
 const ERRORS = {
   MISSING_INITIALS: "Please select initial nodes.",
+  MISSING_ALGORITHM: "Please select an algorithm.",
  
 }
 
