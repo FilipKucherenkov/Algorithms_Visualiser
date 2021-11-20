@@ -1,6 +1,6 @@
 # Algorithms_Visualiser
 
-## App can be viewed at:
+## Check it out here:
  #### https://algorithm-visualiser-app.herokuapp.com/
  
 ## Technologies used:
