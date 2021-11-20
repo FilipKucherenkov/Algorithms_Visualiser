@@ -27,4 +27,10 @@ const CELL_OPTIONS = {
   DESTINATION: "Destination",
 }
 
-export {INITIALS_STATUS, STATUS, STATUS_STYLES, CELL_OPTIONS}
+const ERRORS = {
+  MISSING_INITIALS: "Please select initial nodes.",
+  MISSING_ALGORITHM: "Please select an algorithm.",
+ 
+}
+
+export {INITIALS_STATUS, STATUS, STATUS_STYLES, CELL_OPTIONS, ERRORS}

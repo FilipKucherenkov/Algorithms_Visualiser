@@ -1,0 +1,46 @@
+.error-container{
+    height: 30px;
+    width: 200px;
+    border:3px solid;
+    border-color: #C51D27;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 25px / 25px;
+    color: #484A4A;
+    background-color: #FFFFFF;
+    position:absolute;
+    top: 10%;
+    left: 12%;
+    padding: 10px;
+}
+
+.message-style{
+   width: 150px;
+   margin-left: 20%;
+   margin-top: -18%;
+}
+
+.cross-button{
+    position:absolute;
+    bottom: 70%;
+    left: 89%;
+    border: 1px solid;
+    border-color: black;
+    height: 10px;
+    width: 10px;
+    border-radius: 10px;
+}
+
+.cross{
+    position: absolute;
+    top: -210%;
+    left: 15%;
+    color: black;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+

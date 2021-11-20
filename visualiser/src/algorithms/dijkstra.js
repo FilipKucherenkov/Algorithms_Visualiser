@@ -1,7 +1,13 @@
 import { checkForWalls, getChildren } from "./helperFunctions";
 import { visualiseAlgorithm } from "./visualiseTools";
 
-
+/**
+ * Dijkstra's Search Algorithm.
+ * @param {*} grid - The grid
+ * @param {*} sourceNode - the source node.
+ * @param {*} destNode  - the destination node.
+ * @returns an array with all visited nodes.
+ */
 const dijkstra = (grid, sourceNode, destNode) => {
     const priorityQ = [];
     const visited = [];
@@ -29,7 +35,6 @@ const dijkstra = (grid, sourceNode, destNode) => {
                     child.dValue = newDValue;
                     priorityQ.push(child);
                     priorityQ.sort((a,b) => (a.dValue - b.dValue));
-                    visited.push(child);
                 }
             }
         });

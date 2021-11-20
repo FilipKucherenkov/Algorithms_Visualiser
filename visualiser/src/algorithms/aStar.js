@@ -1,7 +1,13 @@
 import { checkForWalls, getChildren } from "./helperFunctions";
 import { visualiseAlgorithm } from "./visualiseTools";
 
-
+/**
+ * A-star Search Algorithm.
+ * @param {*} grid - The grid
+ * @param {*} sourceNode - the source node.
+ * @param {*} destNode  - the destination node.
+ * @returns an array with all visited nodes.
+ */
 const aStar = (grid, sourceNode, destNode) => {
     const priorityQ = [];
     const visited = [];
@@ -10,11 +16,10 @@ const aStar = (grid, sourceNode, destNode) => {
     sourceNode.isVisited = true;
     sourceNode.dValue = 0;
     sourceNode.fValue = calculateManhattanDistance(sourceNode,destNode);
-    visited.push(sourceNode);
-    
+
     while(priorityQ.length > 0){
         let node = priorityQ.shift();
-        
+        visited.push(node);
 
         if(node === destNode){
             break;
@@ -38,6 +43,7 @@ const aStar = (grid, sourceNode, destNode) => {
             }
         });
     }
+    visited.shift();
     return visited;
 }
 

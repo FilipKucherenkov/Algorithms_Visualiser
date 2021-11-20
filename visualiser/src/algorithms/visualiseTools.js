@@ -9,6 +9,8 @@
  * @param {*} destNode 
  */
  const visualiseAlgorithm =  (destNode, visitedNodes) => {
+    
+    
 
     /**
      * Helper function build the shortest path from the source node to the destination node
@@ -37,9 +39,12 @@
                 if (start < end) {
                   window.requestAnimationFrame(() => {
                     let node = shortestPath[start];
-                    let divNode = document.getElementById(`${node.row}-${node.col}`);
-                    divNode.classList.remove("visited-node");
-                    divNode.classList.add("path-node");
+                    
+                    if(!node.isSource && !node.isDestination){
+                      let divNode = document.getElementById(`${node.row}-${node.col}`);
+                      divNode.classList.remove("visited-node");
+                      divNode.classList.add("path-node");
+                    }
                     updateColor(start + 1, end, shortestPath);
                   });
                   return;
@@ -63,9 +68,12 @@
                 }
                 window.requestAnimationFrame(() => {
                 let node = visitedNodes[start];
-                let divNode = document.getElementById(`${node.row}-${node.col}`);
-                divNode.classList.remove("empty-node");
-                divNode.classList.add("visited-node");
+                
+                if(!node.isSource && !node.isDestination){
+                  let divNode = document.getElementById(`${node.row}-${node.col}`);
+                  divNode.classList.remove("empty-node");
+                  divNode.classList.add("visited-node");
+                }
                 updateColor(start + 1, end, visitedNodes);
               });
               return;
