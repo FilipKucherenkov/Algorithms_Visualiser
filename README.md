@@ -1,3 +1,6 @@
+#App can be viewed at:
+ https://algorithm-visualiser-app.herokuapp.com/
+
 # Algorithms_Visualiser
 
 ReactJS Web app to visualise different Pathfinding algorithms such as A-star, Breadth-First-Search and Dijkstra. 👨‍💻 
