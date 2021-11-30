@@ -17,5 +17,7 @@
   * The board can be reset at any time using a button. 🔥
   * The Generate maze button uses DFS algorithm to generate a maze on the grid.
   
+  ![image](https://user-images.githubusercontent.com/72323426/143968193-dbd9ec05-38b1-4ea1-a437-467d984e3856.png)
+  
   ![image](https://user-images.githubusercontent.com/72323426/143968102-5ac20467-9af0-45d2-85a5-074d169b1e13.png)
 
