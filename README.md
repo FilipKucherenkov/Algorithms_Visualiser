@@ -2,6 +2,7 @@
 
 ## Check it out here:
  #### https://algorithm-visualiser-app.herokuapp.com/
+ #### Quick Note: Please view it on a wider screen as design is not responsive.
  
 ## Technologies used:
   * ReactJS
@@ -16,6 +17,7 @@
   * Visualisation shows the explored path + the shortest path between source and destination node. Functionality includes traveling through diagonals as well. 🔥
   * The board can be reset at any time using a button. 🔥
   * The Generate maze button uses DFS algorithm to generate a maze on the grid.
+  
   
   ![image](https://user-images.githubusercontent.com/72323426/143968193-dbd9ec05-38b1-4ea1-a437-467d984e3856.png)
   
