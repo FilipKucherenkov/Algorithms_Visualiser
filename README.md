@@ -1,16 +1,15 @@
 # Algorithms_Visualiser
 
-## Check it out here:
- #### https://algorithm-visualiser-app.herokuapp.com/
+## Check it out here: https://algorithm-visualiser-app.herokuapp.com/
  #### Quick Note: Please view it on a wider screen as the design is not responsive.
  
 ## Technologies used:
   * ReactJS
   * Docker 
-  * Docker Image deployed on Heroku
+  * Docker Image was deployed on Heroku
  
  
-## ReactJS Web app to visualise different Pathfinding algorithms such as A-star, Breadth-First-Search and Dijkstra. 👨‍💻 
+## ReactJS Web app visualising different Pathfinding algorithms such as A-star, Breadth-First-Search and Dijkstra. 👨‍💻 
 #### Functionality includes:
   * Selecting source and destination nodes and visualising the min path between them and the search process. 🔥
   * You can choose which algorithms to run and visualise. 🔥
