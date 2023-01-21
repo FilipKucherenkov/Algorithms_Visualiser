@@ -6,7 +6,7 @@
 ## Technologies used:
   * ReactJS
   * Docker 
-  * Docker Image was deployed on Heroku
+  * Docker container was deployed on Heroku
  
  
 ## ReactJS Web app visualising different Pathfinding algorithms such as A-star, Breadth-First-Search and Dijkstra. 👨‍💻 
