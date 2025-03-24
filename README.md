@@ -72,7 +72,7 @@ npm run build
 - JavaScript (ES6+)
 - GitHub Pages (for deployment)
 
-<img src="https://user-images.githubusercontent.com/72323426/143968193-dbd9ec05-38b1-4ea1-a437-467d984e3856.png" width="300"/>
-<img src="https://github.com/user-attachments/assets/25b12e7c-fcf9-40e0-b181-69e231c4811c" width="300"/>
+<img src="https://user-images.githubusercontent.com/72323426/143968193-dbd9ec05-38b1-4ea1-a437-467d984e3856.png" width="600"/>
+<img src="https://github.com/user-attachments/assets/25b12e7c-fcf9-40e0-b181-69e231c4811c" width="600"/>
 
 
