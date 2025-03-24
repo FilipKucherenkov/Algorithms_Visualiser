@@ -1,10 +1,8 @@
-
-import React, {useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/grid-style.css";
 import "../styles/navigation-style.css"
 import Node from "../Node";
 import Cell from "./Cell";
-import { useEffect } from "react/cjs/react.development";
 import { INITIALS_STATUS, CELL_OPTIONS, ERRORS } from "../enums";
 import {visualiseBfs} from "../algorithms/bfs";
 import { visualiseAStar } from "../algorithms/aStar";
@@ -35,17 +33,17 @@ const Grid = ({rows, cols}) => {
          * Generate a grid with a node in each cell 
          * based on rows and cols values from props.
          */
-        const createGrid = () =>{
+        const createGrid = () => {
+            const newGrid = [];
             for(let row = 0; row < rows; row++){
                 let newRow = [];
                 for(let col = 0; col < cols; col++){
                     let newNode = new Node(row, col, false, false, false, false, Infinity, 0, Infinity, null);
                     newRow.push(newNode);
                 }
-                setGrid((currentState) => {
-                    return [...currentState, newRow];
-                })
+                newGrid.push(newRow);
             }
+            setGrid(newGrid);
         }
         createGrid();
     },[])
