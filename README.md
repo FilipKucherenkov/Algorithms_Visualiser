@@ -73,6 +73,6 @@ npm run build
 - GitHub Pages (for deployment)
 
   ![image](https://user-images.githubusercontent.com/72323426/143968193-dbd9ec05-38b1-4ea1-a437-467d984e3856.png)
-  
-  ![image](https://user-images.githubusercontent.com/72323426/143968102-5ac20467-9af0-45d2-85a5-074d169b1e13.png)
+  ![IMG_2687](https://github.com/user-attachments/assets/25b12e7c-fcf9-40e0-b181-69e231c4811c)
+
 
