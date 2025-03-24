@@ -18,6 +18,7 @@ A React-based web application for visualizing various pathfinding algorithms. Th
 ## Live Demo
 
 Visit the live demo at: [https://filipkucherenkov.github.io/Algorithms_Visualiser/](https://filipkucherenkov.github.io/Algorithms_Visualiser/)
+(Also responsive on mobile)
 
 ## Getting Started
 
