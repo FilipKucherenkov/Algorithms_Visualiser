@@ -10,11 +10,11 @@ import { dfs } from "../algorithms/dfs";
 import { visualiseDijkstra } from "../algorithms/dijkstra";
 import ErrorMsg from "./errorMsg";
 
-
-const Grid = ({rows, cols}) => {
+const Grid = () => {
     const [grid, setGrid] = useState([]);
     const [startStatus, setStartStatus] = useState(null);
     const [destStatus, setDestStatus] = useState(null);
+    const [gridSize, setGridSize] = useState({ rows: 25, cols: 25 });
 
     const [selectedAlgo, setSelectedAlgo] = useState(null);
     const [sourceNode, setSourceNode] = useState(null);
@@ -25,19 +25,35 @@ const Grid = ({rows, cols}) => {
     const [areInitialsSelected, setInitials] = useState(null);
     const [isAlgorithmSelected, setAlgorithm] = useState(null);
 
+    // Handle window resize
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth <= 480) {
+                setGridSize({ rows: 15, cols: 15 });
+            } else {
+                setGridSize({ rows: 25, cols: 25 });
+            }
+        };
+
+        // Set initial size
+        handleResize();
+
+        // Add resize listener
+        window.addEventListener('resize', handleResize);
+
+        // Cleanup
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     /**
      * Create the initial grid.
      */
-    useEffect(()=>{
-        /**
-         * Generate a grid with a node in each cell 
-         * based on rows and cols values from props.
-         */
+    useEffect(() => {
         const createGrid = () => {
             const newGrid = [];
-            for(let row = 0; row < rows; row++){
+            for(let row = 0; row < gridSize.rows; row++){
                 let newRow = [];
-                for(let col = 0; col < cols; col++){
+                for(let col = 0; col < gridSize.cols; col++){
                     let newNode = new Node(row, col, false, false, false, false, Infinity, 0, Infinity, null);
                     newRow.push(newNode);
                 }
@@ -46,7 +62,7 @@ const Grid = ({rows, cols}) => {
             setGrid(newGrid);
         }
         createGrid();
-    },[])
+    }, [gridSize])
     
     /**
      * Reset the whole grid to it's initial state.
@@ -214,9 +230,10 @@ const Grid = ({rows, cols}) => {
     //Style used here to use props.
     const gridStyle = {
         display: "grid",
-        gridTemplateColumns: `repeat(${cols}, 30px)`,
-        gridTemplateCows: `repeat(${rows}, 30px)`,
+        gridTemplateColumns: `repeat(${gridSize.cols}, min(30px, 6vw))`,
+        gridTemplateRows: `repeat(${gridSize.rows}, min(30px, 6vw))`,
         backgroundColor: "white",
+        gap: 0,
     }
 
     

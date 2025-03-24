@@ -1,32 +1,151 @@
 .container{
     text-align: center;
-    margin-top: 2%;
+    margin: 0.5% 0 1.5% 0;
+    padding: 0 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    position: relative;
+    max-width: 100vw;
 }
+
+.error-message {
+    position: fixed;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    width: 90%;
+    max-width: 300px;
+    font-size: 14px;
+}
+
 .button{
     background: transparent;
-    display:inline-block;
-    padding:0.35em 1.2em;
-    border:0.1em solid #FFFFFF;
-    margin:0 0.3em 0.3em 0;
-    border-radius:0.12em;
+    display: inline-block;
+    padding: 0.35em 1em;
+    border: 0.1em solid #FFFFFF;
+    margin: 0;
+    border-radius: 0.12em;
     box-sizing: border-box;
-    text-decoration:none;
-    font-family:'Roboto',sans-serif;
-    font-weight:300;
-    color:#FFFFFF;
-    text-align:center;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    color: #FFFFFF;
+    text-align: center;
     transition: all 0.2s;
-}
-.button:hover{
-    color:#000000;
-    background-color:#FFFFFF;
+    min-width: 120px;
+    font-size: 14px;
+    cursor: pointer;
 }
 
+.button:hover{
+    color: #000000;
+    background-color: #FFFFFF;
+}
+
+select.button {
+    appearance: none;
+    padding: 0.4em 2em 0.4em 0.4em;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.7em center;
+    background-size: 0.65em auto;
+    text-align-last: center;
+    text-align: center;
+    -moz-text-align-last: center;
+}
+
+select.button:hover {
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+}
+
+@media (max-width: 768px) {
+    .container {
+        margin: 1% 0 2% 0;
+        gap: 6px;
+        padding: 0 8px;
+    }
+    
+    .button {
+        padding: 0.3em 0.8em;
+        font-size: 13px;
+        min-width: 110px;
+        border-width: 0.08em;
+    }
+
+    .error-message {
+        top: 3px;
+        width: 95%;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        margin: 2% 0 4% 0;
+        gap: 8px;
+        padding: 0 6px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-areas: 
+            "select select"
+            "maze reset"
+            "start dest"
+            "run run";
+    }
+    
+    .button {
+        padding: 0.4em 0.6em;
+        font-size: 12px;
+        min-width: unset;
+        width: 100%;
+        border-width: 0.06em;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    select.button {
+        grid-area: select;
+        padding: 0 2em 0 1em;
+    }
+
+    button.button:nth-of-type(1) {
+        grid-area: run;
+        order: 1;
+    }
+
+    button.button:nth-of-type(3) {
+        grid-area: maze;
+    }
+
+    button.button:nth-of-type(4) {
+        grid-area: reset;
+    }
+
+    button.button:nth-of-type(5) {
+        grid-area: start;
+    }
+
+    button.button:nth-of-type(6) {
+        grid-area: dest;
+    }
+
+    .error-message {
+        top: 2px;
+        width: 98%;
+        font-size: 11px;
+    }
+}
 
 .bounce{
-    animation:bounce 5s infinite linear;
-    position:relative;
+    animation: bounce 5s infinite linear;
+    position: relative;
 }
+
 @keyframes bounce {
     0%{top:0em}
     40%{top:0em}
