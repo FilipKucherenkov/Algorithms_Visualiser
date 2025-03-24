@@ -1,21 +1,17 @@
 # Algorithms Visualiser
 
-A React-based web application for visualizing various pathfinding algorithms. This project helps users understand how different pathfinding algorithms work by providing an interactive visual representation.
+A React-based web application for visualizing various pathfinding algorithms. This project helps users understand how different pathfinding algorithms work by providing an interactive visual representation. 
 
-## Features
-
-- Interactive grid-based visualization
-- Multiple pathfinding algorithms:
+## Features 🔥
+- Most famous pathfinding algorithms supported:
   - Breadth-First Search (BFS)
   - Dijkstra's Algorithm
   - A* Search
 - Maze generation using Depth-First Search
 - Real-time visualization of algorithm execution
-- Customizable grid size
 - Wall placement for creating obstacles
-- Start and end point selection
 
-## Live Demo
+## Live Demo 🚀
 
 Visit the live demo at: [https://filipkucherenkov.github.io/Algorithms_Visualiser/](https://filipkucherenkov.github.io/Algorithms_Visualiser/)
 (Responsive on mobile but you cannot draw walls)
